@@ -1,0 +1,72 @@
+ {% extends "base.html" %}
+
+{% block sidebar %}
+<ul>
+	<li><a href="/scheduler/all">Schedules</a></li>
+	<li><a href="/scheduler/create">Add Schedule</a></li>
+</ul>
+<br/>
+<hr />
+<br/>
+<form action="/scheduler/all/" method="post">
+	<label for="sdate">Start Date:</label><br/>
+	<input type="text" name="sdate" value="" id="sdate" />
+	<br/>
+	<label for="edate">End Date:</label><br/>
+	<input type="text" name="edate" value="" id="edate" />
+	<br/>
+	<label for="type">Status:</label><br/>
+	<input type="text" name="type" value="" id="type" />
+	<br/><br/>
+	<input type="submit" value="search" />
+</form>
+{% endblock %}
+
+{% block content %}
+Today is {{ today }}
+
+{% for schedule in schedules %}
+<div class="visitentry">
+<!--<div style="font-size:16px;float:right;"><a href="/scheduler/schedule/{{ schedule.id }}/">{{ schedule.date }}</a></div>-->
+<div style="font-size:24px;padding:10px;"><a href="/scheduler/schedule/{{ schedule.id }}/">{{ schedule.title }}</a></div>
+<div style="padding:0px 0px 10px 5px;">{{ schedule.summary }}</div>
+
+{% if schedule.status == 1 %}
+    <div class="status1">
+		Waiting
+	</div>
+	<center>
+	<table>
+	<tr>
+	<td>
+	<a href="/scheduler/finish/{{ schedule.id }}">
+	<div class="status2" style="font-size:12px;padding:2px;width:35px">
+		Finish
+	</div>
+	</a>
+	</td>
+	<td>
+	<a href="/scheduler/cancel/{{ schedule.id }}">
+	<div class="status3" style="font-size:12px;padding:2px;width:40px">
+		Cancel
+	</div>
+	</a>
+	</td>
+	</tr>
+	</table>
+	</center>
+{% elif schedule.status == 2 %}
+    <div class="status2">
+		Done
+	</div>
+{% elif schedule.status == 3 %}
+    <div class="status3">
+		Cancelled
+	</div>
+{% endif %}
+
+
+</div>
+{% endfor %}
+
+{% endblock %}

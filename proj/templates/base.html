@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}My base template {% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static "assets/css/default.css" %}" />
+</head>
+<body>
+	<div id="page">
+    <div id="sidebar">
+		<center><font size=6 color="#6666FF">SCHEDULER</font></center>
+		<hr />
+		Hi {{ full_name }}!
+		<br />
+		{% block sidebar %}
+        <ul>
+            <li><a href="/scheduler/all">Schedules</a></li>
+            <li><a href="/admin/">Admin</a></li>
+        </ul>
+		{% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}
+		Content Here
+		{% endblock %}
+    </div>
+	
+	</div>
+</body>
+</html>
